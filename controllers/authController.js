@@ -51,7 +51,6 @@ exports.signup = catchAsync(async (req, res, next) => {
         role,
     });
     const url = `${req.protocol}://${req.get('host')}/me`;
-    console.log(url);
     const emailTemplate = new Email(newUser, url);
     await emailTemplate.sendWelcome();
     createSendToken(newUser, 201, res);
@@ -162,11 +161,8 @@ exports.isLoggedIn = async (req, res, next) => {
 exports.restrictTo = (...roles) => {
     // returning a function because we want to pass the req, res, next arguments to this function
     return (req, res, next) => {
-        console.log(req.user);
         // roles ['admin', 'lead-guide']. role='user'
         if (!roles.includes(req.user.role)) {
-            console.log(req.user.role);
-            console.log(roles);
             return next(new AppError('You do not have permission to perform this action', 403));
         }
         next();
@@ -203,7 +199,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
         user.passwordResetToken = undefined;
         user.passwordResetExpires = undefined;
         await user.save({ validateBeforeSave: false });
-        console.log(err);
         return next(new AppError('There was an error sending the email. Try again later!', 500));
     }
 });
@@ -217,9 +212,6 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     if (!hashedToken) {
         return next(new AppError('Invalid token!', 400));
     }
-    console.log({ hashedToken });
-    // Print date.now() as dd/mm/yyyy hh:mm:ss
-    console.log(new Date(Date.now()).toLocaleString());
     const user = await User.findOne({ passwordResetToken: { $eq: hashedToken }, passwordResetExpires: { $gt: Date.now() } });
 
     // 2) If token has not expired, and there is user, set the new password

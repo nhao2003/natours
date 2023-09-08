@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "debug": "ndb server.js",
     "watch:js": "parcel watch --no-hmr ./public/js/index.js --out-dir ./public/js --public-url /js --out-file bundle.js",
-    "build:js": "parcel watch public/js/index.js --out-dir public/js --out-file bundle.js"
+    "build:js": "parcel build public/js/index.js --out-dir public/js --out-file bundle.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +22,7 @@
     "@stripe/stripe-js": "^2.1.2",
     "axios": "^1.5.0",
     "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "eslint-config-airbnb": "^19.0.4",

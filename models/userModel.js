@@ -76,7 +76,6 @@ userSchema.methods.correctPassword = async function (candidatePassword, userPass
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
     if (this.passwordChangedAt) {
         const changedTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
-        console.log(changedTimestamp, JWTTimestamp);
         return JWTTimestamp < changedTimestamp;
     }
     // False means NOT changed
@@ -104,8 +103,6 @@ userSchema.methods.createPasswordResetToken = function () {
 
     // Set the passwordResetExpires field to the current timestamp plus 10 minutes (in milliseconds)
     this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
-
-    console.log({ resetToken }, this.passwordResetToken);
 
     // Return the original resetToken (not hashed) to potentially send it via email or other means to the user
     return resetToken;

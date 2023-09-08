@@ -12,7 +12,6 @@ module.exports = class Email {
 
     createTransport() {
         if (process.env.NODE_ENV === 'production') {
-            console.log('Email sent from Sendinblue');
             // Sendinblue
             return nodemailer.createTransport({
                 // service: 'Brevo',
@@ -38,7 +37,6 @@ module.exports = class Email {
     }
 
     async send(template, subject) {
-        console.log(this.to);
         // 1) Render HTML based on a pug template
         const html = pug.renderFile(`${__dirname}/../views/emails/${template}.pug`, {
             firstName: this.firstName,
@@ -56,13 +54,7 @@ module.exports = class Email {
 
         };
         //3) Create a transport and send email
-        await this.createTransport().sendMail(mailOptions).then((info) => {
-            console.log('Message sent: %s', info.messageId);
-        }).catch((err) => {
-            console.log('Error occurred');
-            console.log(err.message);
-            throw err;
-        });
+        await this.createTransport().sendMail(mailOptions);
     }
 
     async sendWelcome() {

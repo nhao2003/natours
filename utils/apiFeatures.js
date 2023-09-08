@@ -12,17 +12,14 @@ class ApiFeatures {
     // Advanced filtering
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    console.log(JSON.parse(queryStr));
     this.query = this.query.find(JSON.parse(queryStr));
     return this;
   }
 
   sort() {
     // Sorting
-    console.log(this.queryString);
     if (this.queryString.sort) {
       const sortBy = this.queryString.sort.split(',').join(' ');
-      console.log(sortBy);
       this.query = this.query.sort(sortBy);
     } else {
       // Add minus sign to sort by descending order
@@ -35,7 +32,6 @@ class ApiFeatures {
     // Field limiting
     if (this.queryString.fields) {
       const fields = this.queryString.fields.split(',').join(' ');
-      console.log(fields);
       this.query = this.query.select(fields);
     } else {
       // Exclude __v field by default

@@ -52,7 +52,6 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 exports.uploadPhoto = upload.single('photo');
 
 exports.checkID = (req, res, next, val) => {
-  console.log(`Tour id is: ${val}`);
   // TODO: check if id is valid
   next();
 };

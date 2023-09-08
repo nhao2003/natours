@@ -14,6 +14,7 @@ const hpp = require('hpp'); // Parameter pollution
 const viewRouter = require('./routes/viewRoutes');
 const cookieParser = require('cookie-parser');
 const bookingRouter = require('./routes/bookingRoute');
+const compression = require('compression');
 
 
 const app = express();
@@ -66,6 +67,8 @@ app.use(hpp({
   ],
 }));
 
+
+app.use(compression());
 
 // Test middleware
 app.use((req, res, next) => {
