@@ -19,10 +19,6 @@ mongoose.connect(DB).then(() => {
   console.log('DB connection successful!');
 });
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
-});
-
 process.on('unhandledRejection', (err) => {
   console.log(err.name, err.message);
   console.log('UNHANDLED REJECTION! Shutting down...');
@@ -31,4 +27,6 @@ process.on('unhandledRejection', (err) => {
   });
 });
 
-
+app.listen(port, () => {
+  console.log(`App listening at http://localhost:${port}`);
+});
